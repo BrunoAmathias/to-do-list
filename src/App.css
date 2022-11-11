@@ -1,8 +1,11 @@
 .paper{
     max-width: 580px;
     margin: auto;
+    margin-top: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 0 10px 0;
+    padding: 35px 10px 35px 10px;
 }
+
+

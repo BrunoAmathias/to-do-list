@@ -1,16 +1,16 @@
 import { Paper } from '@mui/material';
 import { Container } from '@mui/system';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Form from './Components/Form';
 import TodoItem from './Components/TodoItem';
-
+const localTodos = 'Todos'
 
 function App() {
 
 const [todo, setTodo] = useState([])
 
-function changeTodo(text){
+const changeTodo = (text)=>{
   setTodo([...todo, text])
 }
 
@@ -32,15 +32,28 @@ const editTodo = (id, editedTodo)=>{
 
 
 
-  return (
+useEffect(()=>{
+const arraysTodo = JSON.parse(localStorage.getItem(localTodos)) 
+if(arraysTodo.length > 0){
+  setTodo(arraysTodo)
+
+}
+},[])
+
+useEffect(()=>{
+  localStorage.setItem(localTodos, JSON.stringify(todo))
+  },[todo])
+
+  return (<>
     <Paper className='paper' >
-    <Container >
-    <Form changeTodo={changeTodo}  fullWidth/>
-    {todo.map((todo)=>(
-      <TodoItem key={todo.id} editTodo={editTodo} deletedTodo={deletedTodo} todo={todo} fullWidth/>
-    ))}
-    </Container>
+      <Container>
+        <Form changeTodo={changeTodo}  fullWidth/>
+        {todo.map((todo)=>(
+          <TodoItem key={todo.id} editTodo={editTodo} deletedTodo={deletedTodo} todo={todo} fullWidth/>
+      ))}
+      </Container>
     </Paper>
+    </>
   )
 }
 

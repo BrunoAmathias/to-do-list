@@ -14,10 +14,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function EditTodo({openEdit, handleDialog, todo, editTodo}) {
 
 const [editedTodo, setEditedTodo] = React.useState(todo.text)
+const [validateError, setValidateError] = React.useState(false)
 
-const changeEditedTodo= ()=>{
-    editTodo(todo.id, editedTodo)
-    handleDialog()
+
+const changeEditedTodo= (e)=>{
+    e.preventDefault()
+    if(editedTodo.length > 0){
+      editTodo(todo.id, editedTodo)
+      handleDialog()
+      setValidateError(false)
+    }else{
+      setValidateError(true)
+    }
 }
 
   return (
@@ -27,11 +35,12 @@ const changeEditedTodo= ()=>{
         TransitionComponent={Transition}
         keepMounted
         onClose={handleDialog}
-        aria-describedby="alert-dialog-slide-description"
-      >
+        aria-describedby="alert-dialog-slide-description">
+        <form action="">
         <DialogTitle>{"Editar Tarefa"}</DialogTitle>
         <DialogContent>
           <TextField
+          error={validateError ? true : false}
           fullWidth
           defaultValue={editedTodo}
           onChange={(e)=> setEditedTodo(e.target.value)}
@@ -39,8 +48,9 @@ const changeEditedTodo= ()=>{
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialog}>Cancelar</Button>
-          <Button onClick={changeEditedTodo} >Ok</Button>
+          <Button type='submit' onClick={changeEditedTodo} >Ok</Button>
         </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

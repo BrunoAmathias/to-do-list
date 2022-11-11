@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import CommentIcon from '@mui/icons-material/Comment';
 import DeleteIcon from '@mui/icons-material/Delete';
+import '../Style/Form.style.css'
 import EditTodo from './EditTodo'
 
 export default function TodoItem({todo, deletedTodo, editTodo}) {
@@ -21,8 +22,6 @@ const handleDialog=()=>{
 const rideUpTodoID = () =>{
   deletedTodo(todo.id);
 }
-
-
   return (
     <>
    <EditTodo editTodo={editTodo} todo={todo} handleDialog={handleDialog} openEdit={openEdit} />
@@ -30,11 +29,10 @@ const rideUpTodoID = () =>{
       {[0].map((value) => {
         const labelId = `checkbox-list-label-${value}`;
         return ( 
-        
           <ListItem
             key={value}
             secondaryAction={
-              <DeleteIcon onClick={rideUpTodoID} edge="end" aria-label="comments">
+              <DeleteIcon className='iconDelete' onClick={rideUpTodoID} edge="end" aria-label="comments">
                 <CommentIcon />
               </DeleteIcon>
             }
