@@ -66,8 +66,7 @@ return (
       type='submit'
       onClick={todoCreate}
       variant="outlined">
-        Add
-    </Button>
+        Add</Button>
   </form>
   </>
   )

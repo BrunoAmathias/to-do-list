@@ -34,7 +34,7 @@ const editTodo = (id, editedTodo)=>{
 
 useEffect(()=>{
 const arraysTodo = JSON.parse(localStorage.getItem(localTodos)) 
-if(arraysTodo.length > 0){
+if(arraysTodo){
   setTodo(arraysTodo)
 
 }

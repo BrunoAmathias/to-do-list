@@ -13,14 +13,14 @@ export default function AlertSuccessOrError({openAlertSuccess, setOpenAlertSucce
     if (reason === 'clickaway') {
       return;
     }
-    setOpenAlertSuccess(false);
+      setOpenAlertSuccess(false);
   };
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       setOpenAlertError(false)
       return;
     }
-    setOpenAlertError(false);
+      setOpenAlertError(false);
   };
 
   return (
