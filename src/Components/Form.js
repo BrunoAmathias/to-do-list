@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import '../Style/Form.style.css'
 import AlertSuccessOrError from './AlertSuccessOrError'
 const localId = 'localId'
+const localTodos = 'Todos'
 
-  const Form = ({changeTodo}) => {
+
+  const Form = ({changeTodo, todo}) => {
 
   const[text, setText] = useState('')
   const[id, setId] = useState(0)
@@ -18,7 +20,7 @@ const localId = 'localId'
   const todoCreate = (e)=>{
     e.preventDefault()
     if(text.length > 0){
-        const todoObj = {text : text, id: id}
+        const todoObj = {text : text, id: id, done: false}
         setId(id + 1)
         RideUpText(todoObj)
         setValidateError(false)
@@ -28,7 +30,7 @@ const localId = 'localId'
         setOpenAlertError(true)
         console.log(openAlertError);
     }
-
+  
   }
 
   const RideUpText= (text)=>{
@@ -47,7 +49,8 @@ const localId = 'localId'
   useEffect(()=>{
     localStorage.setItem(localId, JSON.stringify(id))
   },[id])
-      
+
+  
 
 return (
   <>

@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import '../Style/Form.style.css'
 import EditTodo from './EditTodo'
 
-export default function TodoItem({todo, deletedTodo, editTodo}) {
+export default function TodoItem({todo, changeDone, deletedTodo, editTodo}) {
  
 const [openEdit, setOpenEdit] = React.useState(false);
 
@@ -22,6 +22,12 @@ const handleDialog=()=>{
 const rideUpTodoID = () =>{
   deletedTodo(todo.id);
 }
+
+const rideUpTodoDone = () =>{
+  changeDone(todo.done, todo.id)
+}
+
+
   return (
     <>
    <EditTodo editTodo={editTodo} todo={todo} handleDialog={handleDialog} openEdit={openEdit} />
@@ -41,7 +47,9 @@ const rideUpTodoID = () =>{
             <ListItemButton >
               <ListItemIcon>
                 <Checkbox
+                  checked={todo.done}
                   inputProps={{ 'aria-labelledby': labelId }}
+                  onClick={rideUpTodoDone}
                 />
               </ListItemIcon>
               <ListItemText onClick={handleDialog}  primary={todo.text} />

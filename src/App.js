@@ -7,8 +7,11 @@ import TodoItem from './Components/TodoItem';
 const localTodos = 'Todos'
 
 function App() {
+  
+  
+const arraysTodo = JSON.parse(localStorage.getItem(localTodos) || '[]' ) 
 
-const [todo, setTodo] = useState([])
+const [todo, setTodo] = useState(arraysTodo)
 
 const changeTodo = (text)=>{
   setTodo([...todo, text])
@@ -18,6 +21,22 @@ const deletedTodo = (id) => {
   const filteredTodo = todo.filter((todo)=> todo.id !== id)
   setTodo(filteredTodo)
 }
+
+function changeDone( done ,id){
+  let updatedDone = todo.map(it =>{
+    if(it.id === id){
+      it.done = !it.done
+    }
+  return it
+})
+
+
+
+setTodo(updatedDone) 
+console.log(todo);
+}
+  
+
 
 const editTodo = (id, editedTodo)=>{
   var todosArray = [...todo]
@@ -31,25 +50,24 @@ const editTodo = (id, editedTodo)=>{
 }
 
 
-
-useEffect(()=>{
-const arraysTodo = JSON.parse(localStorage.getItem(localTodos)) 
-if(arraysTodo){
-  setTodo(arraysTodo)
-
-}
-},[])
+// useEffect(()=>{
+//   const arraysTodo = JSON.parse(localStorage.getItem(localTodos)) 
+//   if(arraysTodo){
+//     setTodo(arraysTodo)
+//   }
+// },[])
 
 useEffect(()=>{
   localStorage.setItem(localTodos, JSON.stringify(todo))
   },[todo])
 
+
   return (<>
     <Paper className='paper' >
       <Container>
-        <Form changeTodo={changeTodo}  fullWidth/>
+        <Form changeTodo={changeTodo} todo={todo} fullWidth/>
         {todo.map((todo)=>(
-          <TodoItem key={todo.id} editTodo={editTodo} deletedTodo={deletedTodo} todo={todo} fullWidth/>
+          <TodoItem key={todo.id} changeDone={changeDone} editTodo={editTodo} deletedTodo={deletedTodo} setTodo={setTodo} todo={todo} fullWidth/>
       ))}
       </Container>
     </Paper>
